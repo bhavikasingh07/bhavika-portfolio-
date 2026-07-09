@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhavika</title>
+<meta name="description" content="Bhavika — AI Software Engineer portfolio.">
+<meta name="theme-color" content="#07070f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%226%22 fill=%22%2307070f%22/><g transform=%22translate(16,18)%22><g fill=%22%23ff5fc9%22><ellipse cx=%220%22 cy=%22-9%22 rx=%223.2%22 ry=%228%22/><ellipse cx=%220%22 cy=%22-9%22 rx=%223.2%22 ry=%228%22 transform=%22rotate(60)%22/><ellipse cx=%220%22 cy=%22-9%22 rx=%223.2%22 ry=%228%22 transform=%22rotate(120)%22/><ellipse cx=%220%22 cy=%22-9%22 rx=%223.2%22 ry=%228%22 transform=%22rotate(180)%22/><ellipse cx=%220%22 cy=%22-9%22 rx=%223.2%22 ry=%228%22 transform=%22rotate(240)%22/><ellipse cx=%220%22 cy=%22-9%22 rx=%223.2%22 ry=%228%22 transform=%22rotate(300)%22/></g><circle r=%223%22 fill=%22%23ffd66b%22/></g></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="crt-overlay"></div>
+<div class="vignette"></div>
+<canvas id="starfield"></canvas>
+
+<audio id="bgMusic" src="audio/bg-music.mp3" loop preload="auto"></audio>
+<button id="soundToggle" class="sound-toggle glass-pixel" title="toggle sound">🔊</button>
+
+<header class="hud">
+  <span class="hud-left">XP: FULL STACK LEVEL 03</span>
+  <div class="hud-right">
+    <span class="heart">♥</span>
+    <div class="healthbar"><div class="health-fill" id="healthFill"></div></div>
+    <span class="player-tag">PLAYER 01</span>
+  </div>
+</header>
+
+<!-- BOOT / HERO -->
+<section class="boot-screen" id="boot">
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+
+  <div class="boot-frame">
+    <h1 class="glow-yellow pixel-font hero-greet">Hi!</h1>
+    <h2 class="glow-pink pixel-font title-big hero-name">Bhavika here.</h2>
+    <button class="start-btn pixel-font" id="startBtn" data-sfx="start">START</button>
+  </div>
+
+  <div class="scene-ground">
+    <div class="lamp" id="lampToggle" title="Toggle pink mode"><div class="lamp-glow"></div></div>
+    <div class="pixel-canvas" id="playerSprite"></div>
+    <div class="tree" id="treeToggle" title="Tap for blossoms">
+      <div class="tree-leaves">
+        <span class="blossom" style="--x:18%; --y:18%; --d:0s"></span>
+        <span class="blossom" style="--x:52%; --y:6%; --d:.07s"></span>
+        <span class="blossom" style="--x:78%; --y:22%; --d:.14s"></span>
+        <span class="blossom" style="--x:12%; --y:48%; --d:.21s"></span>
+        <span class="blossom" style="--x:46%; --y:42%; --d:.28s"></span>
+        <span class="blossom" style="--x:80%; --y:52%; --d:.35s"></span>
+        <span class="blossom" style="--x:32%; --y:64%; --d:.42s"></span>
+      </div>
+      <div class="tree-trunk"></div>
+    </div>
+    <div class="pixel-canvas" id="catSprite"></div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;</span>
+    <span>★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;★&nbsp; About Me &nbsp;</span>
+  </div>
+</div>
+
+<!-- LEVEL 01 -->
+<section class="level" id="level1">
+  <div class="level-heading">
+    <h3 class="level-label pixel-font">Level<br>01</h3>
+    <p class="level-sub pixel-font">Meet the player</p>
+  </div>
+
+  <div class="level1-body">
+    <div class="ds-wrap" id="dsWrap">
+      <div class="ds-console">
+        <div class="ds-top">
+          <div class="ds-screen" id="consoleScreen" title="Click to toggle Real Photo / Pixel Art">
+            <div class="screen-shimmer"></div>
+            <div class="pixel-canvas ds-hidden" id="portraitSprite"></div>
+            <img id="realPortrait" class="ds-portrait" src="images/profile-halftone.jpg" alt="Bhavika">
+          </div>
+        </div>
+        <div class="ds-hinge"><span></span><span></span><span></span></div>
+        <div class="ds-bottom">
+          <div class="dpad">
+            <div class="dpad-v"></div><div class="dpad-h"></div>
+          </div>
+          <button class="ds-heart-btn" id="heartBtn" title="Toggle photo" aria-label="Toggle photo view">💗</button>
+          <div class="abxy">
+            <span class="btn-x">X</span><span class="btn-y">Y</span>
+            <span class="btn-a">A</span><span class="btn-b">B</span>
+          </div>
+        </div>
+      </div>
+      <div class="ds-name">BHAVIKA</div>
+    </div>
+
+    <div class="dialog glass-pixel" id="dialogBox">
+      <div class="dialog-title pixel-font">Hello !!</div>
+      <p><b>Player:</b> Bhavika</p>
+      <p><b>Role:</b> AI Software Engineer</p>
+      <p><b>Mission:</b> Building full-stack apps and automated video/AI pipelines that ship.</p>
+      <p><b>Status:</b> Ready to explore, build, and win.</p>
+      <p class="typewriter" id="typewriter"></p>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-panel glass-pixel" data-connect="dpad">
+      <h4 class="pixel-font">Weapons<br>Mastery</h4>
+      <div class="tool-icons">
+        <span class="tool-chip" style="--c:#61dafb">Re</span>
+        <span class="tool-chip" style="--c:#6e6e6e">Nx</span>
+        <span class="tool-chip" style="--c:#3c873a">No</span>
+        <span class="tool-chip" style="--c:#3776ab">Py</span>
+        <span class="tool-chip" style="--c:#3178c6">Ts</span>
+        <span class="tool-chip" style="--c:#ff9900">Aw</span>
+        <span class="tool-chip" style="--c:#5c6bc0">C</span>
+        <span class="tool-chip" style="--c:#00599c">C++</span>
+        <span class="tool-chip" style="--c:#ed8b00">Jv</span>
+        <span class="tool-chip" style="--c:#f0db4f">Js</span>
+      </div>
+    </div>
+
+    <div class="stat-panel glass-pixel training" data-connect="core">
+      <h4 class="pixel-font">Training Log</h4>
+      <p>B.Tech (CSE)</p>
+      <p>Amity University, Greater Noida</p>
+      <p>2023 – 2027</p>
+    </div>
+
+    <div class="stat-panel glass-pixel" data-connect="abxy">
+      <h4 class="pixel-font">Skills Mastery</h4>
+      <ul>
+        <li>JavaScript &amp; TypeScript</li>
+        <li>Python, C &amp; C++</li>
+        <li>React.js &amp; Next.js</li>
+        <li>Node.js &amp; Express.js</li>
+        <li>Data Structures &amp; Algorithms</li>
+        <li>Object-Oriented Programming</li>
+        <li>Machine Learning</li>
+        <li>REST API Design</li>
+        <li>AWS (Lambda, S3)</li>
+        <li>Workflow Automation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="marquee pink">
+  <div class="marquee-track">
+    <span>★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;</span>
+    <span>★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;★&nbsp; Missions &nbsp;</span>
+  </div>
+</div>
+
+<!-- LEVEL 02 / MISSIONS -->
+<section class="level" id="missions">
+  <div class="level-heading">
+    <h3 class="level-label pixel-font">Level<br>02</h3>
+    <p class="level-sub pixel-font">Missions (Projects)</p>
+  </div>
+
+  <div class="missions-grid">
+    <div class="mission-card glass-pixel">
+      <div class="mission-thumb mission-thumb-1">
+        <svg class="mission-scene" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="mission-dust" fill="#fff">
+            <circle cx="20" cy="20" r=".7" opacity=".4"/>
+            <circle cx="140" cy="80" r=".7" opacity=".4"/>
+            <circle cx="130" cy="22" r=".6" opacity=".35"/>
+          </g>
+          <g transform="translate(80,50)">
+            <circle r="19" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+            <polygon points="-6,-10 -6,10 13,0" fill="currentColor" class="core-node"/>
+          </g>
+        </svg>
+      </div>
+      <h5 class="pixel-font">AI Video Generation Platform</h5>
+      <p>End-to-end AI video pipeline — script to voice to rendered frames. Built with GPT-5, WhisperX, FastAPI, AWS &amp; React.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">GPT-5</span><span class="tech-tag">WhisperX</span><span class="tech-tag">FastAPI</span><span class="tech-tag">AWS</span><span class="tech-tag">React</span>
+      </div>
+    </div>
+    <div class="mission-card glass-pixel">
+      <div class="mission-thumb mission-thumb-2">
+        <svg class="mission-scene" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="mission-dust" fill="#fff">
+            <circle cx="24" cy="78" r=".7" opacity=".4"/>
+            <circle cx="134" cy="24" r=".7" opacity=".4"/>
+            <circle cx="30" cy="22" r=".6" opacity=".35"/>
+          </g>
+          <g transform="translate(80,50)">
+            <path d="M-16 -18 L-31 0 L-16 18" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 -18 L31 0 L16 18" stroke="currentColor" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle r="4" fill="currentColor" class="core-node"/>
+          </g>
+        </svg>
+      </div>
+      <h5 class="pixel-font">AI Coding Assistant (RAG)</h5>
+      <p>Retrieval-augmented coding assistant that grounds answers in your own codebase. Built with LangGraph, LlamaIndex, a vector DB &amp; OpenAI.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">LangGraph</span><span class="tech-tag">LlamaIndex</span><span class="tech-tag">Vector DB</span><span class="tech-tag">OpenAI</span>
+      </div>
+    </div>
+    <div class="mission-card glass-pixel">
+      <div class="mission-thumb mission-thumb-3">
+        <svg class="mission-scene" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+          <g class="mission-dust" fill="#fff">
+            <circle cx="18" cy="20" r=".7" opacity=".4"/>
+            <circle cx="140" cy="78" r=".7" opacity=".4"/>
+            <circle cx="132" cy="24" r=".6" opacity=".35"/>
+          </g>
+          <g transform="translate(80,50)" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="-24" y="-16" width="13" height="32" rx="2.5" opacity=".55"/>
+            <rect x="-6.5" y="-22" width="13" height="44" rx="2.5" class="core-node"/>
+            <rect x="11" y="-10" width="13" height="20" rx="2.5" opacity=".55"/>
+          </g>
+        </svg>
+      </div>
+      <h5 class="pixel-font">Project Management Platform</h5>
+      <p>Kanban-style project &amp; task management platform for teams. Built with Next.js, Node.js, PostgreSQL &amp; Docker.</p>
+      <div class="tech-tags">
+        <span class="tech-tag">Next.js</span><span class="tech-tag">Node.js</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Docker</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-ground wide">
+    <div class="flower"></div>
+    <div class="pipe"><div class="pipe-flower"></div></div>
+    <div class="key">🔑</div>
+    <div class="flower"></div>
+    <div class="bat"></div>
+    <div class="bat delay"></div>
+    <div class="castle-door" id="castleDoor"><div class="door-frame"><div class="door-panel"></div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT / GAME OVER -->
+<section class="game-over-screen" id="contact">
+  <div class="game-over glass-pixel">
+    <h2 class="pixel-font glow-pink">GAME OVER?</h2>
+    <p class="pixel-font small-text">press continue to connect</p>
+    <button class="start-btn pixel-font" id="continueBtn" data-sfx="start">CONTINUE</button>
+    <div class="contact-links">
+      <a href="mailto:bhavikasingh2023@gmail.com">✉ bhavikasingh2023@gmail.com</a>
+      <a href="https://linkedin.com/in/bhavikasingh07" target="_blank" rel="noopener">💼 linkedin.com/in/bhavikasingh07</a>
+      <a href="https://github.com/bhavikasingh07" target="_blank" rel="noopener">🐙 github.com/bhavikasingh07</a>
+    </div>
+  </div>
+</section>
+
+<script src="js/script.js"></script>
+</body>
+</html>
